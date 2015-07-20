@@ -39,9 +39,7 @@ Client is intended to run on a raspberry pi.
 
 On a default raspbian install:
 
-apt-get install git python  python-rpi.gpio python-pip  python-yaml python-flask
-
-pip install python-yaml flask-cors flask.ext.httpauth Flask-HTTPAuth
-
-python ./node.py
+* apt-get install git python  python-rpi.gpio python-pip  python-yaml python-flask
+* pip install python-yaml flask-cors flask.ext.httpauth Flask-HTTPAuth
+* python ./node.py
 
