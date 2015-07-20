@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<div class="container">
+
+  {% if session.logged_in %}
+<form class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" method="post" action="{{ url_for('add_entry') }}">
+<h4>Event</h4>
+    <div class="form-group">
+<input type="text" name="title" class="form-control input-lg" placeholder="Title">
+</div>
+    <div class="form-group">
+	<textarea name=text rows=5 cols=40 class="form-control input-lg" placeholder="Text"></textarea>
+    </div>
+    <div class="form-group">
+<input type=submit class="btn btn-primary btn-lg btn-block" value="Share">
+        </div>
+</form>
+</div>
+
+<!-- TOTAL SUBSCRIBERS BLOCK -->
+
+
+  {% endif %}
+
+
+
+
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>No entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
+

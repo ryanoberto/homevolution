@@ -1,0 +1,68 @@
+{% extends "template.html" %}
+{% block content %}
+{% include "navigation.html" %}
+
+{% if now_playing %}
+<a href="kodi">
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+     <!-- FOLLOWERS BLOCK -->
+        	<div class="dash-unit">
+                	<div class="panel panel-primary text-center">
+                                <div class="panel-body">
+						<img class="img-rounded col-xs-6 col-sm-6 col-md-6 col-lg-4" src="{{now_playing_image}}">
+						<span class="col-lg-8 col-md-6 col-sm-6 col-xs-6" ><h5>{{ now_playing }}</h5></span>
+                                </div>
+</a>
+				<div class="panel-footer">Now Playing</div>
+                	</div>
+        	</div>
+	</div>
+
+</div>
+{% endif %}
+
+
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+     <!-- FOLLOWERS BLOCK -->
+                <div class="dash-unit">
+                        <div class="panel panel-primary text-center">
+
+
+<!--<img id="control" src="images/xbmc.png" border="0" width="502" height="700" orgWidth="502" orgHeight="700" usemap="#control" alt="" /> -->
+<!--<img id="control" class="img-responsive img-rounded" src="images/xbmc.png" border="0" usemap="#control" alt="">-->
+
+
+<img id="Image-Maps-Com-image-maps-2015-03-31-025750" src="images/xbmc.png" border="0" width="335" height="466" orgWidth="335" orgHeight="466" usemap="#image-maps-2015-03-31-025750" alt="" />
+<map name="image-maps-2015-03-31-025750" id="ImageMapsCom-image-maps-2015-03-31-025750">
+<area id="stop" alt="" title="" href="/api/kodi/stop" shape="rect" coords="29,24,61,52" style="outline:none;" target="_self"     />
+<area id="subtitles" alt="" title="" href="/api/kodi/subtitles" shape="rect" coords="108,25,146,53" style="outline:none;" target="_self"     />
+<area id="bubble" alt="" title="" href="/api/kodi/bubble" shape="rect" coords="188,21,226,49" style="outline:none;" target="_self"     />
+<area id="fullscreen" alt="" title="" href="/api/kodi/fullscreen" shape="rect" coords="269,25,307,53" style="outline:none;" target="_self"     />
+<area id="begining" alt="" title="" href="/api/kodi/begining" shape="rect" coords="17,67,55,95" style="outline:none;" target="_self"     />
+<area id="rewind" alt="" title="" href="/api/kodi/rewind" shape="rect" coords="83,66,121,94" style="outline:none;" target="_self"     />
+<area id="play" alt="" title="" href="/api/kodi/play" shape="rect" coords="145,67,183,95" style="outline:none;" target="_self"     />
+<area id="fastforward" alt="" title="" href="/api/kodi/fastforward" shape="rect" coords="211,65,249,93" style="outline:none;" target="_self"     />
+<area  alt="end" title="" href="/api/kodi/end" shape="rect" coords="276,66,314,94" style="outline:none;" target="_self"     />
+<area  alt="" title="" href="/api/kodi/" shape="rect" coords="12,114,50,144" style="outline:none;" target="_self"     />
+<area id="info" alt="" title="" href="/api/kodi/info" shape="rect" coords="277,109,315,147" style="outline:none;" target="_self"     />
+<area id="up" alt="" title="" href="/api/kodi/up" shape="rect" coords="131,130,202,168" style="outline:none;" target="_self"     />
+<area id="right" alt="" title="" href="/api/kodi/right" shape="rect" coords="257,220,303,302" style="outline:none;" target="_self"     />
+<area id="down" alt="" title="" href="/api/kodi/down" shape="rect" coords="128,349,210,398" style="outline:none;" target="_self"     />
+<area id="left" alt="" title="" href="/api/kodi/left" shape="rect" coords="31,218,80,300" style="outline:none;" target="_self"     />
+<area id="refresh" alt="" title="" href="/api/kodi/refresh" shape="rect" coords="13,368,47,411" style="outline:none;" target="_self"     />
+<area id="notsure" alt="" title="" href="/api/kodi/notsure" shape="rect" coords="284,375,318,418" style="outline:none;" target="_self"     />
+<area id="music" alt="" title="" href="/api/kodi/music" shape="rect" coords="29,434,65,463" style="outline:none;" target="_self"     />
+<area id="movies" alt="" title="" href="/api/kodi/movies" shape="rect" coords="110,431,146,460" style="outline:none;" target="_self"     />
+<area id="series" alt="" title="" href="/api/kodi/series" shape="rect" coords="190,436,226,463" style="outline:none;" target="_self"     />
+<area id="photos" alt="" title="" href="/api/kodi/photos" shape="rect" coords="271,434,309,462" style="outline:none;" target="_self"     />
+
+<area shape="rect" coords="333,464,335,466" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_0" />
+</map>
+                </div>
+        </div>
+
+</div>
+
+
+{% endblock %}

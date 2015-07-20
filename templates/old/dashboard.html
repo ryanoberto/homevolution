@@ -1,0 +1,173 @@
+{% extends "template.html" %}
+{% block content %}
+{% include "navigation.html" %}
+
+
+<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+<!-- TOTAL SUBSCRIBERS BLOCK -->
+                <div class="dash-unit">
+                        <div class="panel panel-primary text-center">
+                                <div class="panel-body">
+                                                <p id=weather></p>
+                                </div>
+                        </div>
+
+                </div>
+</div>
+
+
+
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+<!-- TOTAL SUBSCRIBERS BLOCK -->
+			<div class="panel panel-default text-center">
+                        <div class="panel-heading">Disk Space Usage</div>
+				<div class="panel-body">
+                                        	<h4>GRAPH %</h4>
+                                </div>
+				<div class="panel-footer">5000GB / 5000GB</div>
+                        </div>
+	</div>
+
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+		<div class="panel panel-primary text-center">
+			<div class="panel-heading">Disk Space Usage</div>
+				<div class="panel-body">
+                            <i class="fa fa-bar-chart-o fa-5x"></i>
+                            <h2>120 GB </h2>
+                        </div>
+                        <div class="panel-footer">2000MB / 5000MB</div>
+		</div>
+	</div>
+
+<a href="/power">
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+          <!-- FOLLOWERS BLOCK -->
+        	<div class="dash-unit">
+                	<div class="panel panel-primary text-center">
+                                <div class="panel-body">
+					<h2>50 Kw</h2>
+                                </div>
+</a>
+				<div class="panel-footer">Power</div>
+                	</div>
+        	</div>
+	</div>
+
+<a href="/water">
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+<!-- TOTAL SUBSCRIBERS BLOCK -->
+        	<div class="dash-unit">
+        		<div class="panel panel-primary text-center">
+                               	<div class="panel-body">
+						<h2>20 Kl</h2>
+                        	</div>
+</a>
+				<div class="panel-footer">Water</div>
+        		</div>
+		</div>
+	</div>
+{% if now_playing %}
+<a href="kodi">
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+     <!-- FOLLOWERS BLOCK -->
+        	<div class="dash-unit">
+                	<div class="panel panel-primary text-center">
+                                <div class="panel-body">
+						<img class="img-rounded col-xs-6 col-sm-6 col-md-6 col-lg-4" src="{{now_playing_image}}">
+						<span class="col-lg-8 col-md-6 col-sm-6 col-xs-6" ><h5>{{ now_playing }}</h5></span>
+                                </div>
+</a>
+				<div class="panel-footer">Now Playing</div>
+                	</div>
+        	</div>
+	</div>
+
+</div>
+{% endif %}
+
+
+<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+<!-- TOTAL SUBSCRIBERS BLOCK -->
+        	<div class="dash">
+			<div class="panel panel-primary text-center">
+                                	<div class="panel-body">
+                                                	<h3>Node1: 100%</h3>
+                                	</div>
+</a>
+					<div class="panel-footer">Node Status</div>
+                        	</div>
+        		</div>
+		</div>
+
+	</div>
+{% if alarm %}
+<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <div class="panel panel-primary text-center">
+                                <div class="panel-body">
+                            <i class="fa fa-bar-chart-o fa-5x"></i>
+                            <h2>Armed</h2>
+                        </div>
+                        <div class="panel-footer">Alarm</div>
+                </div>
+        </div>
+{%endif%}
+
+      <!-- Bandwidth Block -->
+
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+     <!-- LOCAL TIME BLOCK -->
+      		<div class="dash-unit">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Who's Home</div>
+                                	<div class="panel-body">
+                                        	<ul class="list-group">
+                                                	<li class="list-group-item"><span class="glyphicon glyphicon-user"></span>Ryan Oberto <br>Last checked-in: Mar 12, 11:11</li>
+                                                	<li class="list-group-item"><span class="glyphicon glyphicon-user"></span>Kim Oberto <br>Last checked-in: Mar 12, 19:02</li>
+                                                	<li class="list-group-item"><span class="glyphicon glyphicon-user"></span>Megan Oberto <br>Last checked-in: Jun 16, 2:24</li>
+                                                	<li class="list-group-item"><span class="glyphicon glyphicon-user"></span>Patients <br>Last checked-in: Jun 18, 4:20</li>
+                                        	</ul>
+                                	</div>
+                        	</div>
+			</div>
+		</div>
+	</div>
+<!--/row -->      
+
+<!-- Shopping List -->
+<!-- if RTM is enabled -->
+	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+		<div class="dash-unit">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Shopping List</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item">Bread</li>
+							<li class="list-group-item">Milk</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- RTM End -->        
+{% if zoneminder %}
+{% for cam ,v in zoneminder.iteritems() %}
+                                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                                                <div class="dash-unit">
+                                                                <div class="panel panel-primary">
+                                                                <div class="panel-heading">{{ cam }}</div>
+                                                                <ul class="list-group" >
+<a href="http://{{zmhost}}/zm/?view=watch&mid={{v}}" target=new>
+<img src="http://{{zmhost}}/cgi-bin/nph-zms?mode=jpeg&monitor={{v}}&scale=100&maxfps=5&buffer=1000&connkey=141247&rand=1419607224" width=300 border=0 class="img-responsive"></a>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                {% endfor %}
+
+{%endif%}
+	</div>
+</div>	
+
+
+{% endblock %}

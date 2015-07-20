@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if error %}
+                <div class="alert alert-warning alert-dismissible">Error: {{ error }}</div>
+
+{% elif  zoneminder %}
+
+                                {% for cam ,v in zoneminder.iteritems() %}
+								<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                						<div class="dash-unit">
+                        					<div class="panel panel-primary">
+								<div class="panel-heading">{{ cam }}</div>
+                                                		<ul class="list-group" >
+<a href="http://{{zmhost}}/zm/?view=watch&mid={{v}}" target=new>
+<img src="http://{{zmhost}}/cgi-bin/nph-zms?mode=jpeg&monitor={{v}}&scale=100&maxfps=5&buffer=1000&connkey=141247&rand=1419607224" width=300 border=0 class="img-responsive"></a>
+                                        			</div>
+                        					</div>
+                						</div>
+        							</div>
+                                {% endfor %}
+
+{% else %}
+
+<div class="alert alert-warning alert-dismissible">No Devices found please <a href="/settings">add some</a></div>
+
+  {% endif %}
+
+
+{% endblock %}
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Homevolution</title>
+
+<!-- Dark Theme-->
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-dark.css">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-dark.min.css" />
+
+
+<!--
+<link href="assets/css/bootstrap.css" rel="stylesheet" />
+<link href="assets/css/font-awesome.css" rel="stylesheet" />
+<link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+<link href="assets/css/custom.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+-->
+
+
+
+<link rel="stylesheet" href="/css/bootstrap-toggle.min.css">
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-toggle.min.js"></script>
+<script src='/js/jquery.simpleWeather.js'></script>
+<script src='/js/weather.js'></script>
+<!--
+<style>
+html {
+background: url({{now_playing_image}}) no-repeat;
+background-size: cover;
+}
+.background-image1
+{
+background: url({{now_playing_images}});
+ }
+</style>
+-->
+</head>
+<body class="background-image1">
+
+<!-- new -->
+
+
+<div class="clockcenter col-sm-1 col-lg-1 pull-right"><h4><digiclock>12:45:25</digiclock></h4></div>
+<h2><a href="/">HomevolutioN</a></h2>
+
+
+{% include "navigation.html" %}
+<div class="container">
+
+
+  {% for message in get_flashed_messages() %}
+    <div class="flash alert alert-warning alert-dismissible">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+
+
+<div id="footer" class="navbar navbar-fixed-bottom">
+      {% block footer %}
+      &copy; Copyleft 2014 by <a href="">HomEvolutioN</a>.
+      {% endblock %}
+</div>
+
+<!-- Funtion to pickup the toggle change and access the correct url -->
+<script>
+$('.toggle-event').change(function() {
+        $('#console-event').html('Toggle:' + $(this).prop('checked')).show();
+
+        if($(this).prop('checked') == true) {
+                $('#console-event').html('Turned ' + $(this).attr('a-device') +' On');
+                //console.log($(this).attr('a-device') +'On');
+                $("#console-event").html('loading').load('http://' + $(this).attr('node') +':5000/api/'+ $(this).attr('a-device') +'/on');
+
+        } else {
+                $('#console-event').html('Turned ' + $(this).attr('a-device') +' Off');
+                //console.log($(this).attr('a-device') + 'Off');
+                $("#console-event").html('loading').load('http://' + $(this).attr('node') +':5000/api/'+ $(this).attr('a-device') +'/off');
+        }
+
+});
+</script>
+<script type="text/javascript" src="/js/admin.js"></script>
+</body></html>

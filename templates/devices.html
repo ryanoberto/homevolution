@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if  devices %}
+<div id="console-event" class="alert alert-warning alert-dismissible" role="alert" style="display: none;"></div>
+
+
+<!-- Device BLOCK -->
+</div>
+{% for device ,s in devices.iteritems() %}
+<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
+ <div class="dash-unit">
+<div class="panel panel-primary">
+        <div class="panel-heading header">{{device}}
+
+
+</div>
+<div class="panel-body">
+<ul class="list-group">
+		{% if 'error' in s %}
+                        <div class="alert alert-warning alert-dismissible">{{ s|replace("urlopen error", "") }}</div>
+                {% else %}
+		
+		{% for i, v in s.iteritems() %}
+        	{% for n, m in v.iteritems() %}
+		
+		{% if m == 'On' %}
+   			<li class="list-group-item">{{ n }} is
+   <input class="toggle-event" node="{{ device }}" a-device="{{ n }}" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini"></li>
+   		{% else %}
+   			<li class="list-group-item">{{ n }} is
+   			<input class="toggle-event" node="{{ device }}" a-device="{{ n }}" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini"></li>
+   		{% endif %}
+
+		{% endfor %}
+{% endfor %}
+{% endif %}
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+</div>
+{% endblock %}
+
