@@ -1,0 +1,47 @@
+##Raspberry pi home automation project
+Author  : ryanoberto
+Description : Raspberry Pi home automation system built in Python there is a client service and a master service, you can use the client service independently
+
+Required Modules:
+
+* APScheduler
+* beautifulsoup
+* python-pywapi
+* PyYAML
+* setuptools
+* websocket-client
+* wiringPi
+* flask
+* flask-httpauth
+* flask_cors
+* flask-sqlalchemy
+* bootstrap-toggle
+
+
+Master Dependancies:
+
+* espeak
+* python-espeak
+* sqlite3
+* Flask-WTF
+
+node.py start the node on port 5000 and starts the webserver for you to manage the device independantly
+homevolution.py managers the nodes, schedules integrates with kodi, zoneminder. 
+
+Usage:
+
+python node.py	starts the node on port 5000
+python homevolution.py starts the master on port 80
+
+Installation Guide:
+
+Client is intended to run on a raspberry pi.
+
+On a default raspbian install:
+
+apt-get install git python  python-rpi.gpio python-pip  python-yaml python-flask
+
+pip install python-yaml flask-cors flask.ext.httpauth Flask-HTTPAuth
+
+python ./node.py
+
