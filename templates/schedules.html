@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+</div>
+
+{% for schedul ,s in schedules.iteritems() %}
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+ <div class="dash-unit">
+<div class="panel panel-primary">
+	<div class="panel-heading header">{{schedul}} 
+	{% for run ,s in schedulerun.iteritems() %}
+		{% if schedul == run %}
+		<p>{{s}}</p>
+		{% endif %}
+	{% endfor %}
+	
+
+</div>
+<div class="panel-body">
+<ul class="list-group">
+
+{% for i, v in s.iteritems() %}
+	{% for n, m in v.iteritems() %}
+
+		<li class="list-group-item">{{ n }} : {{ m }}</li>
+
+        {% endfor %}
+{% endfor %}
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

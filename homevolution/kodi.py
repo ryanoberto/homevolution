@@ -31,6 +31,7 @@ import urllib2
 import urllib
 import sys, traceback
 import subprocess
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from urllib2 import Request, urlopen, URLError
 
 #Open Config file
@@ -65,6 +66,16 @@ logger.addHandler(hdlr)
 logger.setLevel(LOG_LEVEL)
 logging.basicConfig()
 
+
+
+def list():
+        #cur = g.db.execute('select name from modules')
+        #name = [dict(name=row[0]) for row in cur.fetchall()]
+        cur = g.db.execute('select name from kodi')
+        kodi = [dict(name=row[0]) for row in cur.fetchall()]
+        #nodes = [r[0] for r in cur.fetchall()]
+        print kodi
+        return kodi
 
 def nowplaying(KODI):
 

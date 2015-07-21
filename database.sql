@@ -19,10 +19,15 @@ create table devices (
   mac text not null
 );
 
-drop table if exists modules;
-create table modules (
+drop table if exists kodi;
+create table kodi (
+  id integer primary key autoincrement,
+  name text not null
+);
+
+drop table if exists zoneminder;
+create table zoneminder (
   id integer primary key autoincrement,
   name text not null,
-  url text not null,
-  enabled text null
+  url text not null
 );

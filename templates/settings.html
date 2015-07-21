@@ -6,54 +6,6 @@
 <div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
  <div class="dash-unit">
 <div class="panel panel-primary">
-        <div class="panel-heading header">Modules
-</div>
-<div class="panel-body">
-<ul class="list-group">
-
-<form class="" method="post" action="{{ url_for('add_module') }}">
-
-{% for mod in modules %}
-        	{% if mod.enabled == "True" %}
-			<li class="list-group-item">{{ mod.name }} <input class="toggle-event" node="kodi" type="checkbox" checked data-onstyle="success" data-offstyle="danger" data-size="mini"></li>
-		{% else %}
-			<li class="list-group-item">{{ mod.name }} <input class="toggle-event" node="kodi" type="checkbox" data-onstyle="success" data-offstyle="danger" data-size="mini"></li>
-		{% endif %}
-	
-	{% else %}
- 	<li class="list-group-item"><em>No modules added yet</em></li>
-{% endfor %}
-</ul>
-</form>
-
-
-<form class="" method="post" action="{{ url_for('add_module') }}">
-<p>Add module</p>
-    <div class="form-group">
-<input type="text" name="name" class="form-control input-sm" placeholder="Name">
-</div>
-    <div class="form-group">
-        <input type="text" name="url" class="form-control input-sm" placeholder="url">
-    </div>
- <div class="form-group">
-	<label class="checkbox-inline"><input type="checkbox" value="True" name="enabled"> Enabled</label>
-    </div>
-    <div class="form-group">
-<input type=submit class="btn btn-primary btn-sm btn-block" value="Add">
-        </div>
-</form>
-
-</div>
-</div>
-</div>
-</div>
-<!-- End Block-->
-
-
-<!-- Node BLOCK -->
-<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
- <div class="dash-unit">
-<div class="panel panel-primary">
         <div class="panel-heading header">Nodes
 </div>
 <div class="panel-body">
@@ -95,17 +47,17 @@
 <div class="panel-body">
 <ul class="list-group">
 
-  {% for entry in nodes %}
+  {% for entry in kodi %}
         <li class="list-group-item">{{ entry.name }}</li>
   {% else %}
  <li class="list-group-item"><em>No server added yet</em></li>
  {% endfor %}
 </ul>
 
-<form class="" method="post" action="{{ url_for('add_device') }}">
+<form class="" method="post" action="/add/kodi">
 <p>Add Server</p>
     <div class="form-group">
-<input type="text" name="node" class="form-control input-sm" placeholder="Name/IP">
+<input type="text" name="name" class="form-control input-sm" placeholder="Name/IP">
 </div>
     <div class="form-group">
 <input type=submit class="btn btn-primary btn-sm btn-block" value="Add">
@@ -129,17 +81,20 @@
 <div class="panel-body">
 <ul class="list-group">
 
-  {% for entry in nodes %}
-        <li class="list-group-item">{{ entry.name }}</li>
+  {% for entry in zoneminder %}
+        <li class="list-group-item">{{ entry.name }} {{ entry.url }}</li>
   {% else %}
  <li class="list-group-item"><em>No server added yet</em></li>
  {% endfor %}
 </ul>
 
-<form class="" method="post" action="{{ url_for('add_device') }}">
+<form class="" method="post" action="/add/zoneminder">
 <p>Add Server</p>
     <div class="form-group">
-<input type="text" name="node" class="form-control input-sm" placeholder="Name/IP">
+<input type="text" name="name" class="form-control input-sm" placeholder="Name/IP">
+</div>
+<div class="form-group">
+<input type="text" name="url" class="form-control input-sm" placeholder="url of api">
 </div>
     <div class="form-group">
 <input type=submit class="btn btn-primary btn-sm btn-block" value="Add">

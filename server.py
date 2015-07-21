@@ -2,15 +2,14 @@
 import sqlite3
 import os.path
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
-from flask.ext import menu
 from homevolution.db import init_db
 from flask_cors import CORS
 from contextlib import closing
 from homevolution.device import action, get_devices, list_devices
 import homevolution.zoneminder as zoneminder
 import homevolution.kodi as kodi
-import homevolution.modules as modules
-#from homevolution.database import db, User
+import homevolution.schedules as sched
+#import homevolution.modules as modules
 
 
 # configuration
@@ -76,6 +75,19 @@ def kodis():
 
                 return render_template('kodi.html', **templateData)
 
+@app.route('/schedules')
+def schedules():
+   # Pass the template data into the template dashboard.html and return it to the user
+                update_schedule = sched.gettime("sname")
+		update_run = sched.getrun("sname")
+                #SCHEDULE_TIME = config['SCHEDULE']
+                templateData = {
+                'schedule' : sched.SCHEDULE,
+                'schedules' : update_schedule,
+                'schedulerun' : update_run,
+                }
+
+                return render_template('schedules.html', **templateData)
 
 
 @app.route('/devices')
@@ -96,6 +108,34 @@ def show_devices():
 		}
         	return render_template('devices.html', **templateData)
 
+
+@app.route('/<action>/<module>',methods=['POST'])
+def add(action, module):
+	if not session.get('logged_in'):
+        	abort(401)
+	if action == "add":
+                if module == "device":
+			g.db.execute('insert into slaves (node, key) values (?, ?)',
+                 		[request.form['node'], request.form['key']])
+    			g.db.commit()
+    			flash('New device was successfully added')
+		
+		if module == "kodi":
+                        g.db.execute('insert into kodi (name) values (?)',
+                                [request.form['name']])
+                        g.db.commit()
+                        flash('New server was successfully added')	
+		
+		if module == "zoneminder":
+                        g.db.execute('insert into zoneminder (name, url) values (?, ?)',
+                                [request.form['name'], request.form['url']])
+                        g.db.commit()
+                        flash('New server was successfully added')
+		
+	return redirect(url_for('settings'))
+
+
+
 @app.route('/devices/add', methods=['POST'])
 def add_device():
     if not session.get('logged_in'):
@@ -111,15 +151,15 @@ def dashboards():
         templateData={ }
         return render_template('dashboard.html', **templateData)
 
-@app.route('/add/modules', methods=['POST'])
-def add_module():
-    if not session.get('logged_in'):
-        abort(401)
-    g.db.execute('insert into modules (name, url, enabled) values (?, ?, ?)',
-                 [request.form['name'], request.form['url'], request.form['enabled']])
-    g.db.commit()
-    flash('New module was successfully added')
-    return redirect(url_for('settings'))
+#@app.route('/add/modules', methods=['POST'])
+#def add_module():
+#    if not session.get('logged_in'):
+#        abort(401)
+#    g.db.execute('insert into modules (name, url, enabled) values (?, ?, ?)',
+#                 [request.form['name'], request.form['url'], request.form['enabled']])
+#    g.db.commit()
+#    flash('New module was successfully added')
+#    return redirect(url_for('settings'))
 
 
 @app.route('/show')
@@ -170,8 +210,9 @@ def settings():
         else:
 
 		templateData = {
-		'modules' : modules.list(),
 		'nodes' : list_devices(),
+		'kodi' : kodi.list(),
+		'zoneminder' : zoneminder.list(),
 		'devices' : get_devices()
 		}
 		return render_template('settings.html', **templateData)

@@ -31,6 +31,7 @@ import urllib2
 import urllib
 import sys, traceback
 import subprocess
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from urllib2 import Request, urlopen, URLError
 
 #Open Config file
@@ -59,15 +60,31 @@ logger.addHandler(hdlr)
 logger.setLevel(LOG_LEVEL)
 logging.basicConfig()
 
+
+def list():
+        cur = g.db.execute('select name, url from zoneminder')
+	zoneminder = [dict(name=row[0], url=row[1] ) for row in cur.fetchall()]
+	#zoneminder = [dict(name=row[0], url=row[1]) for row in cur.fetchall()]
+        #nodes = [r[0] for r in cur.fetchall()]
+        
+	return zoneminder
+	
+
 def get_cameras():
 
         ret_data = { 'Name': None, 'Id': None}
         if ZM == True:
 		try:
-			#print "zoneminder support"
-			zhost = config["ZM"]["HOST"]
+			cur = g.db.execute('select * from zoneminder')
+			zhost = [r[0] for r in cur.fetchall()]
+			cur = g.db.execute('select * from zoneminder')
+			zm = cur.fetchall()
+			for row in zm:
+   				zhost = row[1]
+   				zurl = row[2]
+			#zhost = config["ZM"]["HOST"]
                 	zport = config["ZM"]["PORT"]
-                	zurl = config["ZM"]["URL"]
+                	#zurl = config["ZM"]["URL"]
 			print "Getting cameras from " + zhost
 			url = "http://"+ zhost +"/"+ zurl +"monitors.json"
                 	data = json.load(urllib2.urlopen(url))
