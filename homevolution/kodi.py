@@ -69,31 +69,36 @@ logging.basicConfig()
 
 
 def list():
-        #cur = g.db.execute('select name from modules')
-        #name = [dict(name=row[0]) for row in cur.fetchall()]
-        cur = g.db.execute('select name from kodi')
-        kodi = [dict(name=row[0]) for row in cur.fetchall()]
-        #nodes = [r[0] for r in cur.fetchall()]
+        cur = g.db.execute('select name, port from kodi')
+        kodi = [dict(name=row[0],port=row[1]) for row in cur.fetchall()]
         print kodi
         return kodi
 
 def nowplaying(KODI):
 
         ret_data = { 'now_playing': None, 'now_playing_image': None}
-
-        if KODI == True:
+	print list()
+        if list():
 		try: 
 
-                	khost = config["KODI"]["HOST"]
-                	kport = config["KODI"]["PORT"]
-
-                	#whats playing
+                	#khost = config["KODI"]["HOST"]
+                	#kport = config["KODI"]["PORT"]
+			cur = g.db.execute('select * from kodi')
+                        zhost = [r[0] for r in cur.fetchall()]
+                        cur = g.db.execute('select * from kodi')
+                        kodi = cur.fetchall()
+			for row in kodi:
+                                khost = row[1]
+                                kport = row[2]
+			#whats playing
+			
                 	query = """{"jsonrpc": "2.0","method": "Player.GetItem","params": {"properties": ["title","album","artist","season","episode","duration","showtitle","tvshowid","thumbnail","file","fanart","streamdetails"],"playerid": 1},"id": "VideoGetItem"}"""
                 	query = urllib.quote_plus(query)
-                	url = "http://"+ khost+":"+ kport +"/jsonrpc?request="+query
+                	url = "http://"+ khost +":"+ kport +"/jsonrpc?request="+query
 
                 	data = json.load(urllib2.urlopen(url))
-
+			print khost
+			print kport
                 	# prints the full request output
                 	#print json.dumps(data , sort_keys=True,indent=4, separators=(',', ': '))
 

@@ -69,6 +69,7 @@ def kodis():
         else:
 		updated_nowplaying = kodi.nowplaying(True)
                 templateData = {
+		 'kodi' : kodi.list(),
                 'now_playing' : updated_nowplaying['now_playing'],
                 'now_playing_image' : updated_nowplaying['now_playing_image'],
                 }
@@ -121,30 +122,19 @@ def add(action, module):
     			flash('New device was successfully added')
 		
 		if module == "kodi":
-                        g.db.execute('insert into kodi (name) values (?)',
-                                [request.form['name']])
+                        g.db.execute('insert into kodi (name, port) values (?,?)',
+                                [request.form['name'], request.form['port']])
                         g.db.commit()
                         flash('New server was successfully added')	
 		
 		if module == "zoneminder":
-                        g.db.execute('insert into zoneminder (name, url) values (?, ?)',
-                                [request.form['name'], request.form['url']])
+                        g.db.execute('insert into zoneminder (name, url, port) values (?, ?, ?)',
+                                [request.form['name'], request.form['url'], request.form['port']])
                         g.db.commit()
                         flash('New server was successfully added')
 		
 	return redirect(url_for('settings'))
 
-
-
-@app.route('/devices/add', methods=['POST'])
-def add_device():
-    if not session.get('logged_in'):
-        abort(401)
-    g.db.execute('insert into slaves (node, key) values (?, ?)',
-                 [request.form['node'], request.form['key']])
-    g.db.commit()
-    flash('New device was successfully added')
-    return redirect(url_for('settings'))
 
 @app.route('/dashboard')
 def dashboards():

@@ -62,8 +62,8 @@ logging.basicConfig()
 
 
 def list():
-        cur = g.db.execute('select name, url from zoneminder')
-	zoneminder = [dict(name=row[0], url=row[1] ) for row in cur.fetchall()]
+        cur = g.db.execute('select name, url, port from zoneminder')
+	zoneminder = [dict(name=row[0], url=row[1], port=row[2] ) for row in cur.fetchall()]
 	#zoneminder = [dict(name=row[0], url=row[1]) for row in cur.fetchall()]
         #nodes = [r[0] for r in cur.fetchall()]
         
@@ -73,7 +73,7 @@ def list():
 def get_cameras():
 
         ret_data = { 'Name': None, 'Id': None}
-        if ZM == True:
+        if list():
 		try:
 			cur = g.db.execute('select * from zoneminder')
 			zhost = [r[0] for r in cur.fetchall()]
@@ -82,8 +82,9 @@ def get_cameras():
 			for row in zm:
    				zhost = row[1]
    				zurl = row[2]
+				zport = row[3]
 			#zhost = config["ZM"]["HOST"]
-                	zport = config["ZM"]["PORT"]
+                	#zport = config["ZM"]["PORT"]
                 	#zurl = config["ZM"]["URL"]
 			print "Getting cameras from " + zhost
 			url = "http://"+ zhost +"/"+ zurl +"monitors.json"

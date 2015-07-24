@@ -62,12 +62,12 @@ def action(node,device,action):
                 error = response.read()
                 print error[559:1000]
                 #if Voice Notifications is enabled.
-                if VN == True:
-                        text = "Turning " +device+ " " +action
-                        voice.speak(text)
+                #if voice.VN == True:
+                #        text = "Turning " +device+ " " +action
+                 #       voice.speak(text)
                 #print kittens
-		if KN == True:
-			print "kittens"
+		#if KN == True:
+		#	print "kittens"
         except URLError, e:
                 print 'Got an error code:', e
 

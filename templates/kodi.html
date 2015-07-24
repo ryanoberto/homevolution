@@ -2,6 +2,7 @@
 {% block body %}
 
 </div>
+{% if kodi  %}
 {% if now_playing %}
 <a href="kodi">
 	<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -19,8 +20,7 @@
 	</div>
 
 </div>
-{% endif %}
-
+  {% endif %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
      <!-- FOLLOWERS BLOCK -->
                 <div class="dash-unit">
@@ -60,7 +60,11 @@
                 </div>
         </div>
 
-</div>
+{% else %}
 
+<div class="alert alert-warning alert-dismissible">No Devices found please <a href="/settings">add some</a></div>
+
+  {% endif %}
+</div>
 
 {% endblock %}

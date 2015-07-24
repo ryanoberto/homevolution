@@ -25,7 +25,6 @@ SOFTWARE.
 """
 import yaml
 from time import gmtime, strftime
-#from apscheduler.scheduler import Scheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 import json
@@ -36,11 +35,8 @@ import subprocess
 from urllib2 import Request, urlopen, URLError
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
-import homevolution.kodi as kodi
-import homevolution.zoneminder as zoneminder
 #import homevolution.voice as voice
 from homevolution.device import action, get_devices
-#from homevolution.database import db, User
 
 ###
 
@@ -78,8 +74,6 @@ logger.addHandler(hdlr)
 logger.setLevel(LOG_LEVEL)
 logging.basicConfig()
 
-#sched = Scheduler()
-#sched.start()
 sched = BackgroundScheduler()
 sched.start()
 
@@ -107,13 +101,13 @@ def schedules(name):
                 #If set to turn on
                 if config["SCHEDULES"][name][s] == "On":
                         logger.info("Turning " +s+" "+config["SCHEDULES"][name][s]+" its "+name)
-                        action('192.168.1.115',s,'on')
+                        action('192.168.1.50',s,'on')
                  	#action(node,s,'on')
 			# GPIO.output(pin,GPIO.LOW)
                 #If set to turn off
                 elif config["SCHEDULES"][name][s] == "Off":
                         logger.info("Turning " +s+" "+config["SCHEDULES"][name][s]+" its "+name)
-                        action('192.168.1.115',s,'off')
+                        action('192.168.1.50',s,'off')
 			#action(node,s,'off')
                         # GPIO.output(pin,GPIO.HIGH)
                 else:
@@ -130,11 +124,9 @@ for sc in config['SCHEDULE'].keys():
         #print name, month, dow, hour, minute
         logger.info("Creating Schedule for " + name )
 	print "Creating Schedule for " + name
-       # sched.add_cron_job(schedules,args=[name], month=month, day_of_week=dow, hour=hour, minute=minute, name=name)
-	#sched.add_job(schedules,trigger="cron",args=[name], month=month, day_of_week=dow, hour=hour, minute=minute, name=name)
-	sched.add_job(schedules,trigger="cron",args=[name],month=month, day_of_week=dow, hour=hour, name=name)
+	sched.add_job(schedules,trigger="cron",args=[name],month=month, day_of_week=dow, hour=hour, minute=minute, name=name)
+	
 #Build a dictionary of schedules and the time when they turn on or off
-
 def gettime(sname):
         ret_getschedule={}
 
@@ -165,7 +157,7 @@ def gettime(sname):
 
 #sched.add_cron_job(lambda: kodi(), day_of_week="*", hour="*", minute="5")
 test = sched.get_jobs()
-#sched.print_jobs()
+#print sched.print_jobs()
 
 def getrun(sname):
 	ret_getrun={}

@@ -1,0 +1,66 @@
+#Main config file
+
+
+SERVER: 
+      PORT: 5000
+      HOST: '0.0.0.0'
+      BUFFER_SIZE: 200
+
+SECRET: "AFEFAVS34T34C234RD2R2R334"
+PROGNAME: homevolution
+LOGFILE: homevolution.log
+LOGFORMAT: "%(asctime)s %(levelname)s %(message)s"
+NODENAME: TestPi
+NODEIP: '192.168.1.115'
+#Sytem Logging
+LOG_LEVEL: INFO
+#API Logging
+DEBUG: False
+
+#Schedule Stuff
+
+#GPIO Pin Info please make sure you understand what you are doing before connecting anything to your device
+#PIN is = GPIO Pin not board pin
+
+
+############################
+#Node Specific Config below#
+############################
+#Allows the master to connect to the node
+ACL: 
+     192.168.1.10:
+     192.168.1.11:
+     127.0.0.1:
+
+
+DEVICES:
+     MAIN-LIGHT:
+#GPIO_IN: 2  
+          GPIO_IN: 17
+          GPIO_OUT: 14          
+     TV:  
+#GPIO_IN: 3       
+          GPIO_IN: 27
+          GPIO_OUT: 15
+
+     OUTSIDE-LIGHT:  
+          GPIO_IN: 0
+          GPIO_OUT: 18
+
+     FRONT-DOOR-LIGHT:
+             GPIO_IN: 0  
+             GPIO_OUT: 23
+
+     BACK-DOOR-LIGHT:
+             GPIO_IN: 0
+             GPIO_OUT: 24
+     POOL: 
+             GPIO_IN: 0
+             GPIO_OUT: 25
+     OP7: 
+             GPIO_IN: 0
+             GPIO_OUT: 8
+#     OP8: 
+#             GPIO_IN: 0
+#             GPIO_OUT: 7
+
