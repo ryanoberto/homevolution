@@ -12,8 +12,17 @@
 <ul class="list-group">
 
   {% for entry in nodes %}
-        <li class="list-group-item">{{ entry.name }}</li>
-  {% else %}
+<form method="post" action="/del/device">
+<div class="form-group"> 
+<input type="hidden" name="node" class="form-control input-sm" value="{{ entry.name }}">
+<li class="list-group-item">{{ entry.name }}
+<label for="dsubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
+    <input id="dsubmit" type="submit" value="Del" class="hidden" />
+</li>
+</div>
+</form>
+ 
+ {% else %}
  <li class="list-group-item"><em>No nodes added yet</em></li>
  {% endfor %}
 </ul>
@@ -48,7 +57,15 @@
 <ul class="list-group">
 
   {% for entry in kodi %}
-        <li class="list-group-item">{{ entry.name }}:{{ entry.port }}</li>
+
+<form method="post" action="/del/kodi">
+<div class="form-group">
+<input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
+<li class="list-group-item">{{ entry.name }}:{{ entry.port }}
+<label for="ksubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
+    <input id="ksubmit" type="submit" value="Del" class="hidden" />
+</li>
+
   {% else %}
  <li class="list-group-item"><em>No server added yet</em></li>
  {% endfor %}
@@ -85,7 +102,14 @@
 <ul class="list-group">
 
   {% for entry in zoneminder %}
-        <li class="list-group-item">{{ entry.name }}:{{ entry.port }} {{ entry.url }}</li>
+<form method="post" action="/del/zoneminder">
+<div class="form-group">
+<input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
+<li class="list-group-item">{{ entry.name }}:{{ entry.port }} {{ entry.url }}
+<label for="zsubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
+    <input id="zsubmit" type="submit" value="Del" class="hidden" />
+</li>
+
   {% else %}
  <li class="list-group-item"><em>No server added yet</em></li>
  {% endfor %}

@@ -132,7 +132,27 @@ def add(action, module):
                                 [request.form['name'], request.form['url'], request.form['port']])
                         g.db.commit()
                         flash('New server was successfully added')
-		
+	
+	elif action == "del":
+		if module == "device":
+                        g.db.execute('delete from slaves where node=?',
+                                [request.form['node']])
+                        g.db.commit()
+                        flash('Device was deleted')
+
+                if module == "kodi":
+                        g.db.execute('delete from kodi where name=?',
+                                [request.form['name']])
+                        g.db.commit()
+                        flash('Server was deleted')
+
+                if module == "zoneminder":
+                        g.db.execute('delete from zoneminder where name=?',
+                                [request.form['name']])
+                        g.db.commit()
+                        flash('Server was deleted')
+
+	
 	return redirect(url_for('settings'))
 
 
