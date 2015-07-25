@@ -9,6 +9,7 @@ from homevolution.device import action, get_devices, list_devices
 import homevolution.zoneminder as zoneminder
 import homevolution.kodi as kodi
 import homevolution.schedules as sched
+import homevolution.kodiapi as kodiapi
 #import homevolution.modules as modules
 
 

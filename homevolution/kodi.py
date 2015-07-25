@@ -97,8 +97,8 @@ def nowplaying(KODI):
                 	url = "http://"+ khost +":"+ kport +"/jsonrpc?request="+query
 
                 	data = json.load(urllib2.urlopen(url))
-			print khost
-			print kport
+			#print khost
+			#print kport
                 	# prints the full request output
                 	#print json.dumps(data , sort_keys=True,indent=4, separators=(',', ': '))
 
