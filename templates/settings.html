@@ -3,7 +3,7 @@
 
 </div>
 <!-- Node BLOCK -->
-<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
  <div class="dash-unit">
 <div class="panel panel-primary">
         <div class="panel-heading header">Nodes
@@ -16,9 +16,7 @@
 <div class="form-group"> 
 <input type="hidden" name="node" class="form-control input-sm" value="{{ entry.name }}">
 <li class="list-group-item">{{ entry.name }}
-<label for="dsubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
-    <input id="dsubmit" type="submit" value="Del" class="hidden" />
-</li>
+<label class="btn"><i class="glyphicon glyphicon-trash"><input type="submit" value="Del" type="button" class="hidden"></i></label>
 </div>
 </form>
  
@@ -48,7 +46,7 @@
 
 
 <!-- Node BLOCK -->
-<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
  <div class="dash-unit">
 <div class="panel panel-primary">
         <div class="panel-heading header">Kodi
@@ -62,8 +60,8 @@
 <div class="form-group">
 <input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
 <li class="list-group-item">{{ entry.name }}:{{ entry.port }}
-<label for="ksubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
-    <input id="ksubmit" type="submit" value="Del" class="hidden" />
+<label class="btn"><i class="glyphicon glyphicon-trash"><input type="submit" value="Del" type="button" class="hidden"></i></label>
+</form>
 </li>
 
   {% else %}
@@ -93,7 +91,7 @@
 
 
 <!-- Node BLOCK -->
-<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12">
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
  <div class="dash-unit">
 <div class="panel panel-primary">
         <div class="panel-heading header">Zoneminder
@@ -106,8 +104,8 @@
 <div class="form-group">
 <input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
 <li class="list-group-item">{{ entry.name }}:{{ entry.port }} {{ entry.url }}
-<label for="zsubmit" class="btn"><i class="glyphicon glyphicon-trash"></i></label>
-    <input id="zsubmit" type="submit" value="Del" class="hidden" />
+<label class="btn"><i class="glyphicon glyphicon-trash"><input type="submit" value="Del" type="button" class="hidden"></i></label>
+</form>
 </li>
 
   {% else %}
@@ -137,6 +135,123 @@
 </div>
 <!-- End Block-->
 
+<!-- schedule -->
+<!-- Node BLOCK -->
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+ <div class="dash-unit">
+<div class="panel panel-primary">
+        <div class="panel-heading header">Schedule
+</div>
+<div class="panel-body">
+<ul class="list-group">
+
+  {% for entry in schedule %}
+<div class="form-group">
+<form class="" method="post" action="/del/schedule">
+<li class="list-group-item">{{ entry.name }} : {{ entry.month }} {{ entry.dayofweek }} {{ entry.hour }}:{{ entry.minute }}
+<input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
+<label class="btn"><i class="glyphicon glyphicon-trash"><input type="submit" value="Del" type="button" class="hidden"></i></label>
+</form>
+</li>
+
+  {% else %}
+ <li class="list-group-item"><em>No shedule added yet</em></li>
+ {% endfor %}
+</ul>
+
+<form class="" method="post" action="/add/schedule">
+<p>Add Schedule</p>
+    <div class="form-group">
+<input type="text" name="name" class="form-control input-sm" placeholder="Name">
+</div>
+<div class="form-group">
+<input type="text" name="month" class="form-control input-sm" placeholder="Month">
+</div>
+<div class="form-group">
+<input type="text" name="dayofweek" class="form-control input-sm" placeholder="Day Of Week">
+</div>
+<div class="form-group">
+<input type="text" name="hour" class="form-control input-sm" placeholder="Hour">
+</div>
+<div class="form-group">
+<input type="text" name="minute" class="form-control input-sm" placeholder="Minute">
+</div>
+<div class="form-group">
+<input type=submit class="btn btn-primary btn-sm btn-block" value="Add">
+        </div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!-- End Block-->
+
+<!-- schedule -->
+<!-- Node BLOCK -->
+<div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+ <div class="dash-unit">
+<div class="panel panel-primary">
+        <div class="panel-heading header">Schedule
+</div>
+<div class="panel-body">
+<ul class="list-group">
+
+  {% for entry in schedules %}
+<div class="form-group">
+<form class="" method="post" action="/del/schedules">
+<li class="list-group-item">{{ entry.name }} : {{ entry.host }} {{ entry.device }} {{ entry.action }}
+<input type="hidden" name="name" class="form-control input-sm" value="{{ entry.name }}">
+<label class="btn"><i class="glyphicon glyphicon-trash"><input type="submit" value="Del" type="button" class="hidden"></i></label>
+</form>
+</li>
+
+  {% else %}
+ <li class="list-group-item"><em>No shedules added yet</em></li>
+ {% endfor %}
+</ul>
+
+<form class="" method="post" action="/add/schedules">
+<p>Add Schedule</p>
+
+<div class="form-group">
+<!-- <label for="sel1">Name:</label> -->
+<select class="form-control" name="name">
+{% for entry in schedule %}
+<option class="form-control input-sm" value="{{ entry.name }}">{{ entry.name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="form-group">
+<select class="form-control" name="host">
+{% for nod in nodes %}
+<option class="form-control input-sm" value="{{ nod.name }}">{{ nod.name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="form-group">
+<input type="text" name="device" class="form-control input-sm" placeholder="Device">
+</div>
+
+<div class="form-group">
+<select class="form-control" name="action">
+<option class="form-control input-sm" value="on">On</option>
+<option class="form-control input-sm" value="off">Off</option>
+</select>
+</div>
+
+<div class="form-group">
+<input type=submit class="btn btn-primary btn-sm btn-block" value="Add">
+        </div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!-- End Block-->
 
 
 

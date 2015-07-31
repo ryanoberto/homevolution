@@ -61,7 +61,8 @@ def action(node,device,action):
                 response = urlopen(request)
                 error = response.read()
                 print error[559:1000]
-                #if Voice Notifications is enabled.
+                print "Turning "+ device, action
+		#if Voice Notifications is enabled.
                 #if voice.VN == True:
                 #        text = "Turning " +device+ " " +action
                  #       voice.speak(text)

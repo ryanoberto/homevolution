@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # all the imports
 import sqlite3
 import os.path
@@ -8,10 +9,12 @@ from contextlib import closing
 from homevolution.device import action, get_devices, list_devices
 import homevolution.zoneminder as zoneminder
 import homevolution.kodi as kodi
-import homevolution.schedules as sched
-import homevolution.kodiapi as kodiapi
-#import homevolution.modules as modules
 
+import homevolution.schedule as schedule
+#import homevolution.schedules as schedules
+
+#import homevolution.kodiapi as kodiapi
+#import homevolution.modules as modules
 
 # configuration
 DATABASE = 'homevolution.db'
@@ -80,11 +83,11 @@ def kodis():
 @app.route('/schedules')
 def schedules():
    # Pass the template data into the template dashboard.html and return it to the user
-                update_schedule = sched.gettime("sname")
-		update_run = sched.getrun("sname")
+                update_schedule = schedule.gettime("sname")
+		update_run = schedule.getrun("sname")
                 #SCHEDULE_TIME = config['SCHEDULE']
                 templateData = {
-                'schedule' : sched.SCHEDULE,
+                'schedule' : schedule.SCHEDULE,
                 'schedules' : update_schedule,
                 'schedulerun' : update_run,
                 }
@@ -133,29 +136,48 @@ def add(action, module):
                                 [request.form['name'], request.form['url'], request.form['port']])
                         g.db.commit()
                         flash('New server was successfully added')
-	
+		if module == "schedule":
+			print request.form['name'],request.form['month'],request.form['dayofweek'],request.form['hour'],request.form['minute']
+                        g.db.execute('insert into schedule (name, month, dayofweek, hour, minute) values (?, ?, ?, ?, ?)',                                                                                           [request.form['name'], request.form['month'], request.form['dayofweek'], request.form['hour'], request.form['minute']])
+                        g.db.commit()
+			flash('New schedule was successfully added')
+		if module == "schedules":
+                        print request.form['name'],request.form['host'],request.form['device'],request.form['action']
+                        g.db.execute('insert into schedules (name, host, device, action) values (?, ?, ?, ?)',                                                                                           [request.form['name'], request.form['host'], request.form['device'], request.form['action']])
+                        g.db.commit()
+                        flash('New schedule was successfully added')
+			
 	elif action == "del":
 		if module == "device":
                         g.db.execute('delete from slaves where node=?',
                                 [request.form['node']])
                         g.db.commit()
-                        flash('Device was deleted')
+                        flash(request.form['node']+' was deleted')
 
                 if module == "kodi":
                         g.db.execute('delete from kodi where name=?',
                                 [request.form['name']])
                         g.db.commit()
-                        flash('Server was deleted')
+                        flash(request.form['name']+' was deleted')
 
                 if module == "zoneminder":
                         g.db.execute('delete from zoneminder where name=?',
                                 [request.form['name']])
                         g.db.commit()
-                        flash('Server was deleted')
+                        flash(request.form['name']+' was deleted')
 
-	
+		if module == "schedule":
+                        g.db.execute('delete from schedule where name=?',
+                                [request.form['name']])
+                        g.db.commit()
+                        flash(request.form['name']+' was deleted')
+
+		if module == "schedules":
+                        g.db.execute('delete from schedules where name=?',
+                                [request.form['name']])
+                        g.db.commit()
+                        flash(request.form['name']+' was deleted')	
 	return redirect(url_for('settings'))
-
 
 @app.route('/dashboard')
 def dashboards():
@@ -219,12 +241,13 @@ def settings():
                 flash('Need to login')
                 return render_template('login.html')
         else:
-
 		templateData = {
 		'nodes' : list_devices(),
 		'kodi' : kodi.list(),
 		'zoneminder' : zoneminder.list(),
-		'devices' : get_devices()
+		'devices' : get_devices(),
+		'schedule' : schedule.list(),
+		'schedules' : schedule.lists()
 		}
 		return render_template('settings.html', **templateData)
 

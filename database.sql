@@ -48,6 +48,7 @@ drop table if exists schedules;
 create table schedules (
   id integer primary key autoincrement,
   name text not null,
+  host text not null,
   device not null,
   action text not null
 );
